@@ -3,6 +3,7 @@ var views = {};
 var client;
 
 $(function() {
+    window.XMPP = XMPP;
     views.login = $('#loginView');
     views.progress = $('#progressView');
     views.connected = $('#connectedView');
@@ -56,6 +57,7 @@ function validateLoginForm() {
 function connect(params) {
     switchToView(views.progress);
     client = XMPP.createClient(params);
+    window.client = client;
     $("#heading").text(params.jid);
 
     client.on('session:started', function() {
