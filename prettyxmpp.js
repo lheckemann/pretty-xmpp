@@ -42,7 +42,7 @@ function switchToView(switchTo) {
 
 function validateLoginForm() {
     var params = {
-        jid: new XMPP.JID($('#loginJid').val()),
+        jid: new XMPP.JID($('#loginJid').val()).bare,
         password: $('#loginPw').val(),
         useStreamManagement: true
     };
@@ -68,11 +68,28 @@ function connect(params) {
     });
 
     client.on('chat', onMessage);
+    client.on('carbon:sent', e => onMessage(e.carbonSent.forwarded.message));
 
     client.connect();
 }
 
 function onMessage(msg) {
+    // Might be chat state or similar
+    if (!msg.body) return;
+
+    var chatJid;
+    if (msg.from.bare != ownJid) {
+        chatJid = msg.from.bare;
+    }
+    else if (msg.to.bare != ownJid) {
+        chatJid = msg.to.bare;
+    }
+    else {
+        console.warn("Warning: received message couldn't be associated with a chat");
+        console.warn(msg);
+        return;
+    }
+
     var messageEl = $('<div/>'),
         authorEl = $('<b/>'),
         bodyEl = $('<span/>');
@@ -83,17 +100,6 @@ function onMessage(msg) {
     bodyEl.text(msg.body);
     messageEl.append(authorEl);
     messageEl.append(bodyEl);
-    var chatJid;
-    if (msg.from.bare != ownJid.bare) {
-        chatJid = msg.from.bare;
-    }
-    else if (msg.to.bare != ownJid.bare) {
-        chatJid = msg.to.bare;
-    }
-    else {
-        console.log("Warning: received message that couldn't be associated with a chat");
-        console.log(msg);
-    }
     $(getChatView(chatJid)).append(messageEl);
 }
 
