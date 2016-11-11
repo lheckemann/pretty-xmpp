@@ -33,6 +33,20 @@ $(function() {
         switchToView(views.login);
         client.disconnect();
     });
+
+    $('#messageInput').on('keypress', function(e) {
+        if (e.key == 'Enter') {
+            if (e.shiftKey) {
+                $('#messageInput').val($('#messageInput').val() + '\n');
+            } else {
+                sendMessage();
+            }
+        }
+    });
+    $('#sendButton').on('click', function(e) {
+        e.preventDefault();
+        sendMessage();
+    });
 });
 
 function switchToView(switchTo) {
@@ -68,7 +82,7 @@ function connect(params) {
     });
 
     client.on('chat', onMessage);
-    client.on('carbon:sent', e => onMessage(e.carbonSent.forwarded.message));
+    client.on('message:sent', onMessage);
 
     client.connect();
 }
@@ -122,6 +136,7 @@ function switchToChat(jid) {
     views.chatListItems[jid].addClass("active");
     $('#chatBox').empty();
     $('#chatBox').append(getChatView(jid));
+    $('#messageInput').focus();
 }
 
 function rosterFailed() {
@@ -139,4 +154,18 @@ function getChatView(jid) {
         views.chats[jid] = view;
     }
     return view;
+}
+
+function sendMessage() {
+    var content = $('#messageInput').val();
+    var recipient = new XMPP.JID(views.chatListItems.ACTIVE.text());
+    if (content && recipient) {
+        $('#messageInput').val('');
+        client.sendMessage({
+            to: recipient,
+            from: client.jid,
+            body: content,
+            type: 'chat'
+        });
+    }
 }
