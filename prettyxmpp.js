@@ -31,11 +31,7 @@ $(function() {
 });
 
 function switchToView(switchTo) {
-    for (var view in views) {
-        if (views[view] != switchTo) {
-            views[view].hide();
-        }
-    }
+    $('.mainView').hide();
     switchTo.show();
 }
 
