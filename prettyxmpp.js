@@ -96,7 +96,7 @@ function onMessage(msg) {
     messageEl.addClass('message');
     authorEl.addClass('author');
     bodyEl.addClass('body');
-    authorEl.text(msg.from);
+    authorEl.text(msg.from.bare);
     bodyEl.text(msg.body);
     messageEl.append(authorEl);
     messageEl.append(bodyEl);
