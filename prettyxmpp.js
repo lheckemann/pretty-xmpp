@@ -1,7 +1,6 @@
 var XMPP = require('stanza.io');
 var views = {};
 var client;
-var ownJid;
 
 $(function() {
     views.login = $('#loginView');
@@ -57,7 +56,6 @@ function validateLoginForm() {
 function connect(params) {
     switchToView(views.progress);
     client = XMPP.createClient(params);
-    ownJid = params.jid;
     $("#heading").text(params.jid);
 
     client.on('session:started', function() {
@@ -78,10 +76,10 @@ function onMessage(msg) {
     if (!msg.body) return;
 
     var chatJid;
-    if (msg.from.bare != ownJid) {
+    if (msg.from.bare != client.jid.bare) {
         chatJid = msg.from.bare;
     }
-    else if (msg.to.bare != ownJid) {
+    else if (msg.to.bare != client.jid.bare) {
         chatJid = msg.to.bare;
     }
     else {
