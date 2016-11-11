@@ -22,10 +22,18 @@
         <div id="connectedView" class="mainView">
             <header>
                 <h1 id="heading">Connected</h1>
-                <a href="#" id="logout">Log out</a>
+                <a href="#" id="logout" class="button">Log out</a>
             </header>
-            <div id="roster"></div>
-            <div id="chatBox"></div>
+            <div id="messageControls">
+                <div id="roster"></div>
+                <div id="chatControls">
+                    <div id="chatBox"></div>
+                    <div id="messageBox">
+                        <input type="text" id="messageInput"/>
+                        <input type="submit" id="sendButton" class="button" value="Send"/>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>

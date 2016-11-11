@@ -1,5 +1,126 @@
+html, body{
+    height: 100%;
+}
 body {
-    font-family: Roboto, sans-serif;
+    font-family: 'Roboto', sans-serif;
+    margin: 0px 0px 0px 0px;
+}
+
+
+.button {
+    background-color: #bbd;
+    padding: 0px 1em 0px 1em;
+    color: black;
+    text-decoration: none;
+    justify-content: center;
+    border: none;
+}
+.button:hover {
+    background-color: #aad;
+}
+.button:active {
+    background-color: #88d;
+}
+.button:focus {
+    outline: none;
+}
+
+
+
+/* Hide root views by default */
+.mainView {
+    display: none;
+    height: 100%;
+}
+
+/* Except for the login view */
+#loginView {
+    display: block;
+}
+
+#connectedView {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Header */
+header {
+    background-color: #aaa;
+    width: 100%;
+    display: flex;
+}
+header h1:before {
+    content: "●";
+    color: #0b0;
+    padding: 10px 10px 10px 20px;
+}
+header h1 {
+    flex-grow: 1;
+    font-size: 125%;
+}
+#logout {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0;
+}
+
+/* And everything below the header */
+#messageControls {
+    display: flex;
+    flex-grow: 1;
+}
+
+/* Roster */
+#roster {
+    display: inline-block;
+    flex-grow: 1;
+    background-color: #ddd;
+}
+.contact {
+    display: block;
+    line-height: 2.3;
+}
+.contact.active {
+    background-color: #eee;
+}
+.contact:before {
+    content: '👤';
+    margin: 10px 1em 10px 10px;
+    /*padding: 0px 1em 0px 0px;*/
+}
+
+
+/* Chat */
+#chatControls {
+    /* Take up more horizontal space than the roster */
+    flex-grow: 4;
+    display: flex;
+    flex-direction: column;
+}
+
+#chatBox {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.chat {
+    flex-grow: 1;
+    padding: 1em;
+    background-color: #eee;
+    width: calc(100% - 2em);
+    height: calc(100% - 2em);
+}
+#messageBox {
+    display: flex;
+}
+#messageInput, #messageInput:focus{
+    flex-grow: 5;
+    outline: none;
+    border: 0px;
+    border-bottom: 1px solid #bbb;
+    margin: 1em;
 }
 
 .message {
@@ -10,12 +131,4 @@ body {
 }
 
 .message .body {
-}
-
-.mainView {
-    display: none;
-}
-
-#loginView {
-    display: block;
 }
