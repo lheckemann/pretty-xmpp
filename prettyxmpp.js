@@ -1,6 +1,7 @@
 var XMPP = require('stanza.io');
 var views = {};
 var client;
+var ownJid;
 
 $(function() {
     views.login = $('#loginView');
@@ -56,13 +57,13 @@ function validateLoginForm() {
 function connect(params) {
     switchToView(views.progress);
     client = XMPP.createClient(params);
+    ownJid = params.jid;
     $("#heading").text(params.jid);
 
     client.on('session:started', function() {
         client.sendPresence();
         client.enableCarbons();
         client.getRoster().then(updateRoster, rosterFailed);
-        
         switchToView(views.connected);
     });
 
@@ -82,7 +83,18 @@ function onMessage(msg) {
     bodyEl.text(msg.body);
     messageEl.append(authorEl);
     messageEl.append(bodyEl);
-    $('#chatBox > *').append(messageEl);
+    var chatJid;
+    if (msg.from.bare != ownJid.bare) {
+        chatJid = msg.from.bare;
+    }
+    else if (msg.to.bare != ownJid.bare) {
+        chatJid = msg.to.bare;
+    }
+    else {
+        console.log("Warning: received message that couldn't be associated with a chat");
+        console.log(msg);
+    }
+    $(getChatView(chatJid)).append(messageEl);
 }
 
 function updateRoster(reply) {
@@ -102,19 +114,23 @@ function switchToChat(jid) {
     views.chatListItems.ACTIVE.removeClass("active");
     views.chatListItems.ACTIVE = views.chatListItems[jid];
     views.chatListItems[jid].addClass("active");
-    var view = views.chats[jid];
-    if (!view) {
-        view = $('<div>');
-        view.addClass('chat');
-        view.text('hello');
-        views.chats[jid] = view;
-    }
     $('#chatBox').empty();
-    $('#chatBox').append(view);
+    $('#chatBox').append(getChatView(jid));
 }
 
 function rosterFailed() {
     var roster = $('#roster');
     roster.empty();
     roster.append($('<div class="rosterError">Could not get roster</div>'));
+}
+
+
+function getChatView(jid) {
+    var view = views.chats[jid];
+    if (!view) {
+        view = $('<div>');
+        view.addClass('chat');
+        views.chats[jid] = view;
+    }
+    return view;
 }
