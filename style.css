@@ -75,12 +75,12 @@ header h1 {
 /* Roster */
 #roster {
     display: inline-block;
-    flex-grow: 1;
     background-color: #ddd;
 }
 .contact {
     display: block;
     line-height: 2.3;
+    padding: 0px 20px 0px 5px;
 }
 .contact.active {
     background-color: #eee;
