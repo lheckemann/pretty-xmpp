@@ -124,7 +124,10 @@ function updateRoster(reply) {
         contactItem = $('<a>');
         contactItem.addClass('contact');
         contactItem.text(contact.jid.bare);
-        contactItem.click(e => switchToChat(e.toElement.innerText));
+        contactItem.click(function(e) {
+            e.preventDefault();
+            switchToChat(e.target.innerText);
+        });
         views.chatListItems[contact.jid.bare] = contactItem;
         rosterView.append(contactItem);
     }
