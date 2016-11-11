@@ -1,0 +1,21 @@
+body {
+    font-family: Roboto, sans-serif;
+}
+
+.message {
+}
+
+.author {
+    padding-right: 2em;
+}
+
+.message .body {
+}
+
+.mainView {
+    display: none;
+}
+
+#loginView {
+    display: block;
+}

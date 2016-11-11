@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'/>
+        <title>Pretty XMPP?</title>
+        <link rel="stylesheet" href="style.css" />
+        <script src="zepto.min.js"></script>
+        <script async src="bundle.js"></script>
+    </head>
+    <body>
+        <div id="loginView" class="mainView">
+            <form id="loginForm">
+                <label for="loginJid">JID</label><input type="text" id="loginJid" placeholder="alice@example.com" value="test@sphalerite.org" />
+                <label for="loginPw">Password</label><input type="password" id="loginPw" placeholder="password" />
+                <label for="loginSave">Log in automatically next time</label><input type="checkbox" id="loginSave" />
+                <input id="loginButton" type="submit" value="Loading" disabled />
+            </form>
+        </div>
+        <div id="progressView" class="mainView">
+            Connecting...
+        </div>
+        <div id="connectedView" class="mainView">
+            <header>
+                <h1 id="heading">Connected</h1>
+                <a href="#" id="logout">Log out</a>
+            </header>
+            <div id="roster"></div>
+            <div id="chatBox"></div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,15 @@
+#!/bin/sh
+while sleep 0.5
+do
+    if [[ prettyxmpp.js -nt bundle.js ]]
+    then
+        date "+[%H:%M:%S] Rebuilding"
+        if time ./bundle.sh
+        then
+            date "+[%H:%M:%S] Rebuilt"
+        else
+            printf -- "------- Failed -------\n"
+            touch bundle.js
+        fi
+    fi
+done
