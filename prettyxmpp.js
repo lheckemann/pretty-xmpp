@@ -95,11 +95,14 @@ function onMessage(msg) {
     if (!msg.body) return;
 
     var chatJid;
+    var direction;
     if (msg.from.bare != client.jid.bare) {
         chatJid = msg.from.bare;
+        direction = "incoming";
     }
     else if (msg.to.bare != client.jid.bare) {
         chatJid = msg.to.bare;
+        direction = "outgoing";
     }
     else {
         console.warn("Warning: received message couldn't be associated with a chat");
@@ -110,7 +113,7 @@ function onMessage(msg) {
     var messageEl = $('<div/>'),
         authorEl = $('<b/>'),
         bodyEl = $('<span/>');
-    messageEl.addClass('message');
+    messageEl.addClass('message ' + direction);
     authorEl.addClass('author');
     bodyEl.addClass('body');
     authorEl.text(msg.from.bare);

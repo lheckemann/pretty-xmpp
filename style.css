@@ -8,7 +8,7 @@ body {
 
 
 .button {
-    background-color: #bbd;
+    background-color: #bee;
     padding: 0.3em 1em 0.3em 1em;
     color: black;
     text-decoration: none;
@@ -16,10 +16,10 @@ body {
     border: none;
 }
 .button:hover {
-    background-color: #aad;
+    background-color: #aff;
 }
 .button:active {
-    background-color: #88d;
+    background-color: #4ef;
 }
 .button:focus {
     outline: none;
@@ -130,6 +130,7 @@ header h1 {
     display: inline-block;
     background-color: #ddd;
     overflow-y: auto;
+    flex-shrink: 0;
 }
 .contact {
     display: block;
@@ -137,7 +138,7 @@ header h1 {
     padding: 0px 20px 0px 5px;
 }
 .contact.active {
-    background-color: #eee;
+    background-color: #ccc;
 }
 .contact:before {
     content: '👤';
@@ -162,7 +163,7 @@ header h1 {
 .chat {
     flex-grow: 1;
     padding: 1em;
-    background-color: #eee;
+    background-color: #ccc;
     width: calc(100% - 2em);
     height: calc(100% - 2em);
     overflow-y: auto;
@@ -180,10 +181,25 @@ header h1 {
 }
 
 .message {
+    padding: 8px 8px 8px 12px;
+    margin: 2px;
+    clear: both;
+}
+.message.outgoing {
+    background-color: #dfd;
+    float: right;
+}
+.message.incoming {
+    background-color: #fff;
+    float: left;
 }
 
 .author {
+    display: block;
+    /* Ensure that the messages have a bit of extra space to the right that can
+     * be taken up by the message's content*/
     padding-right: 2em;
+    color: #777;
 }
 
 .message .body {
