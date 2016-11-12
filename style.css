@@ -193,17 +193,19 @@ header h1 {
 
 .message {
     padding: 8px 8px 8px 12px;
-    margin: 2px 2px 2px 5em;
+    margin: 2px;
     /* We don't want lines to be too long */
     max-width: 80ex;
     clear: both;
 }
 .message.outgoing {
     background-color: #dfd;
+    margin-left: 5em;
     float: right;
 }
 .message.incoming {
     background-color: #fff;
+    margin-right: 5em;
     float: left;
 }
 
