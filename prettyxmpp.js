@@ -2,6 +2,7 @@ var XMPP = require('stanza.io');
 var views = {};
 var client;
 var windowVisible = true;
+var currentChatJid;
 
 $(function() {
     window.XMPP = XMPP;
@@ -10,9 +11,7 @@ $(function() {
     views.progress = $('#progressView');
     views.connected = $('#connectedView');
     views.chats = {};
-    views.chatListItems = {
-        ACTIVE: $('<div>') // Dummy
-    };
+    views.chatTabs = {};
 
     var loginButton = $('#loginButton');
     loginButton.val('Log in');
@@ -152,8 +151,8 @@ function onMessage(msg) {
 }
 
 function increaseUnreadCount(jid) {
-    var chatTab = getChatTabElement(jid);
-    if (chatTab != views.chatListItems.ACTIVE) {
+    if (jid != currentChatJid) {
+        var chatTab = getChatTab(jid);
         var unreadCount = chatTab.children('.unreadCount').first();
         var count = 0;
         if (unreadCount[0]) {
@@ -171,21 +170,20 @@ function increaseUnreadCount(jid) {
 
 function updateRoster(reply) {
     var rosterView = $('#roster');
-    rosterView.empty();
     for (contact of reply.roster.items) {
-        getChatTabElement(contact.jid).addClass('contact');
+        getChatTab(contact.jid).addClass('contact');
     }
 }
 
 function switchToChat(jid) {
-    old = views.chatListItems.ACTIVE;
-    if (old) {
-        old.removeClass("active");
+    if (currentChatJid) {
+        oldTab = getChatTab(currentChatJid);
+        oldTab.removeClass("active");
     }
-    newActive = getChatTabElement(jid);
-    views.chatListItems.ACTIVE = newActive;
-    newActive.addClass("active");
-    newActive.children('.unreadCount').remove();
+    currentChatJid = jid;
+    newActiveTab = getChatTab(jid);
+    newActiveTab.addClass("active");
+    newActiveTab.children('.unreadCount').remove();
     $('#chatBox').html(getChatView(jid));
     $(getChatView(jid)).scrollTop(999999);
     $('#messageInput').focus();
@@ -210,7 +208,7 @@ function getChatView(jid) {
 
 function sendMessage() {
     var content = $('#messageInput').val();
-    var recipient = views.chatListItems.ACTIVE.attr('data-jid');
+    var recipient = currentChatJid;
     if (content && recipient) {
         $('#messageInput').val('');
         client.sendMessage({
@@ -222,21 +220,21 @@ function sendMessage() {
     }
 }
 
-function getChatTabElement(jid) {
+function getChatTab(jid) {
     jid = jid.bare || jid;
-    var el = views.chatListItems[jid];
+    var el = views.chatTabs[jid];
     if (el) {
-        return el;
+        return $(el);
     }
     el = $('<a>');
-    el.attr('data-jid', jid);
+    el.data('jid', jid);
     el.addClass('contact');
     el.text(jid);
     el.click(function(e) {
         e.preventDefault();
         switchToChat(this.attributes['data-jid'].value);
     });
-    views.chatListItems[jid] = el;
+    views.chatTabs[jid] = el;
     $('#roster').append(el);
     return el;
 }
