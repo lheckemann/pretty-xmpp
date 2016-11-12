@@ -182,6 +182,8 @@ header h1 {
     flex-shrink: 0;
 }
 #messageInput, #messageInput:focus{
+    font-family: "Roboto", sans-serif;
+    resize: none;
     flex-grow: 5;
     outline: none;
     border: 0px;
@@ -212,4 +214,5 @@ header h1 {
 }
 
 .message .body {
+    white-space: pre;
 }

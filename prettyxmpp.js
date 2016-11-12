@@ -41,12 +41,13 @@ $(function() {
 
     $('#messageInput').on('keypress', function(e) {
         if (e.key == 'Enter') {
-            if (e.shiftKey) {
-                $('#messageInput').val($('#messageInput').val() + '\n');
-            } else {
+            if (!e.shiftKey) {
+                e.preventDefault();
                 sendMessage();
             }
         }
+        e.target.style.height = "1px";
+        e.target.style.height = e.target.scrollHeight + "px";
     });
     $('#sendButton').on('click', function(e) {
         e.preventDefault();
@@ -210,7 +211,7 @@ function getChatView(jid) {
 
 function sendMessage() {
     var content = $('#messageInput').val();
-    var recipient = new XMPP.JID(views.chatListItems.ACTIVE.attr('data-jid'));
+    var recipient = views.chatListItems.ACTIVE.attr('data-jid');
     if (content && recipient) {
         $('#messageInput').val('');
         client.sendMessage({
