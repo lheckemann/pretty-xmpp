@@ -30,6 +30,9 @@ $(function() {
 
     $('#logout').click(function(e) {
         localStorage.clear();
+        $('#passwordCleared').show();
+        $('#loginJid').val('');
+        $('#loginPw').val('');
         switchToView(views.login);
         client.disconnect();
     });

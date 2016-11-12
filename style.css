@@ -25,6 +25,18 @@ body {
     outline: none;
 }
 
+.info:before {
+    color: #00f;
+    content: "🛈";
+    padding: 5px 2px 5px 5px;
+}
+.info {
+    margin: 0em 5em 0em 5em;
+    background-color: #ccf;
+    padding: 8px 0px 8px 0px;
+    display: inline-block;
+}
+
 
 
 /* Root views occupy the whole screen */
