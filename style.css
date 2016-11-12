@@ -117,6 +117,7 @@ header h1 {
 #roster {
     display: inline-block;
     background-color: #ddd;
+    overflow-y: scroll;
 }
 .contact {
     display: block;
