@@ -9,7 +9,7 @@ body {
 
 .button {
     background-color: #bbd;
-    padding: 0px 1em 0px 1em;
+    padding: 0.3em 1em 0.3em 1em;
     color: black;
     text-decoration: none;
     justify-content: center;
@@ -27,16 +27,55 @@ body {
 
 
 
-/* Hide root views by default */
+/* Root views occupy the whole screen */
 .mainView {
-    display: none;
     height: 100%;
+    background-color: #eee;
 }
 
-/* Except for the login view */
+
+/* Login */
 #loginView {
     display: block;
 }
+
+#loginForm {
+    display: block;
+    min-width: 16em;
+    max-width: 20em;
+    margin: 0px auto 0px auto;
+    padding: 3em 0px 3em 0px;
+}
+
+#loginForm label {
+    float: left;
+    clear: left;
+}
+#loginForm input[type="checkbox"] {
+    display: inline-block;
+    width: auto;
+    margin: 0px 0px 1em 1em;
+}
+#loginForm input[type="password"], #loginForm input[type="text"] {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 1em;
+}
+#loginForm input[type="submit"] {
+    width: 100%;
+    display: block;
+    margin-top: 1em;
+}
+
+/* Connecting */
+#progressView {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+
 
 #connectedView {
     height: 100%;
@@ -50,6 +89,7 @@ header {
     background-color: #aaa;
     width: 100%;
     display: flex;
+    flex-shrink: 0;
 }
 header h1:before {
     content: "●";
@@ -70,6 +110,7 @@ header h1 {
 #messageControls {
     display: flex;
     flex-grow: 1;
+    background-color: #fff;
 }
 
 /* Roster */
@@ -111,9 +152,11 @@ header h1 {
     background-color: #eee;
     width: calc(100% - 2em);
     height: calc(100% - 2em);
+    overflow-y: scroll;
 }
 #messageBox {
     display: flex;
+    flex-shrink: 0;
 }
 #messageInput, #messageInput:focus{
     flex-grow: 5;

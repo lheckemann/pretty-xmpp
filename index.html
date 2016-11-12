@@ -10,16 +10,19 @@
     <body>
         <div id="loginView" class="mainView">
             <form id="loginForm">
-                <label for="loginJid">JID</label><input type="text" id="loginJid" placeholder="alice@example.com" value="test@sphalerite.org" />
-                <label for="loginPw">Password</label><input type="password" id="loginPw" placeholder="password" />
-                <label for="loginSave">Log in automatically next time</label><input type="checkbox" id="loginSave" />
-                <input id="loginButton" type="submit" value="Loading" disabled />
+                <label for="loginJid">JID</label>
+                <input type="text" id="loginJid" placeholder="alice@example.com" />
+                <label for="loginPw">Password</label>
+                <input type="password" id="loginPw" placeholder="password" />
+                <label for="loginSave">Log in automatically next time</label>
+                <input type="checkbox" id="loginSave" />
+                <input id="loginButton" type="submit" value="Loading" class="button" disabled />
             </form>
         </div>
-        <div id="progressView" class="mainView">
+        <div id="progressView" class="mainView" style="display: none">
             Connecting...
         </div>
-        <div id="connectedView" class="mainView">
+        <div id="connectedView" class="mainView" style="display: none">
             <header>
                 <h1 id="heading">Connected</h1>
                 <a href="#" id="logout" class="button">Log out</a>
