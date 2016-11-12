@@ -140,13 +140,13 @@ function onMessage(msg) {
     $(getChatView(chatJid)).append(messageEl);
 
     increaseUnreadCount(chatJid);
-
     if (!windowVisible) {
         var n = new Notification("Message from " + chatJid, {
             body: msg.body
         });
-        n.onclick = () => switchToChat(chatJid)
+        n.onclick = () => switchToChat(chatJid);
     }
+    ($('#newMessageSound')[0] || {play: ()=>null}).play();
 }
 
 function increaseUnreadCount(jid) {
