@@ -1,4 +1,4 @@
-html, body{
+html, body {
     height: 100%;
 }
 body {
@@ -179,6 +179,7 @@ header h1 {
 #messageBox {
     display: flex;
     flex-shrink: 0;
+    font-size: 80%;
 }
 #messageInput, #messageInput:focus{
     font-family: "Roboto", sans-serif;
@@ -192,7 +193,9 @@ header h1 {
 
 .message {
     padding: 8px 8px 8px 12px;
-    margin: 2px;
+    margin: 2px 2px 2px 5em;
+    /* We don't want lines to be too long */
+    max-width: 80ex;
     clear: both;
 }
 .message.outgoing {
