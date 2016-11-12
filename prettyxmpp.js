@@ -141,12 +141,14 @@ function onMessage(msg) {
     $(getChatView(chatJid)).append(messageEl);
     $(getChatView(chatJid)).scrollTop(999999);
 
-    increaseUnreadCount(chatJid);
-    if (!windowVisible) {
-        var n = new Notification("Message from " + chatJid, {
-            body: msg.body
-        });
-        n.onclick = () => switchToChat(chatJid);
+    if (direction == 'incoming') {
+        increaseUnreadCount(chatJid);
+        if (!windowVisible) {
+            var n = new Notification("Message from " + chatJid, {
+                body: msg.body
+            });
+            n.onclick = () => switchToChat(chatJid);
+        }
     }
     ($('#newMessageSound')[0] || {play: ()=>null}).play();
 }
