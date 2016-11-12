@@ -129,7 +129,7 @@ header h1 {
 #roster {
     display: inline-block;
     background-color: #ddd;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 .contact {
     display: block;
@@ -165,7 +165,7 @@ header h1 {
     background-color: #eee;
     width: calc(100% - 2em);
     height: calc(100% - 2em);
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 #messageBox {
     display: flex;
