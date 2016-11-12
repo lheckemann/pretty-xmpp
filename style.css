@@ -146,6 +146,15 @@ header h1 {
     /*padding: 0px 1em 0px 0px;*/
 }
 
+.unreadCount {
+    background-color: #444;
+    color: #eee;
+    font-size: 60%;
+    font-weight: bold;
+    padding: 0.2em 0.5em;
+    margin-left: 0.5em;
+}
+
 
 /* Chat */
 #chatControls {

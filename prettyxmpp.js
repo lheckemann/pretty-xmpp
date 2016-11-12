@@ -4,6 +4,7 @@ var client;
 
 $(function() {
     window.XMPP = XMPP;
+    window.views = views;
     views.login = $('#loginView');
     views.progress = $('#progressView');
     views.connected = $('#connectedView');
@@ -121,28 +122,41 @@ function onMessage(msg) {
     messageEl.append(authorEl);
     messageEl.append(bodyEl);
     $(getChatView(chatJid)).append(messageEl);
+
+    var chatTab = getChatTabElement(chatJid);
+    if (chatTab != views.chatListItems.ACTIVE) {
+        var unreadCount = chatTab.children('.unreadCount').first();
+        var count = 0;
+        if (unreadCount[0]) {
+            count = parseInt(unreadCount.text()) || 0;
+        }
+        else {
+            unreadCount = $('<span/>');
+            unreadCount.addClass('unreadCount');
+            chatTab.append(unreadCount);
+        }
+        count++;
+        unreadCount.text(count);
+    }
 }
 
 function updateRoster(reply) {
     var rosterView = $('#roster');
     rosterView.empty();
     for (contact of reply.roster.items) {
-        contactItem = $('<a>');
-        contactItem.addClass('contact');
-        contactItem.text(contact.jid.bare);
-        contactItem.click(function(e) {
-            e.preventDefault();
-            switchToChat(e.target.innerText);
-        });
-        views.chatListItems[contact.jid.bare] = contactItem;
-        rosterView.append(contactItem);
+        getChatTabElement(contact.jid).addClass('contact');
     }
 }
 
 function switchToChat(jid) {
-    views.chatListItems.ACTIVE.removeClass("active");
-    views.chatListItems.ACTIVE = views.chatListItems[jid];
-    views.chatListItems[jid].addClass("active");
+    old = views.chatListItems.ACTIVE;
+    if (old) {
+        old.removeClass("active");
+    }
+    newActive = getChatTabElement(jid);
+    views.chatListItems.ACTIVE = newActive;
+    newActive.addClass("active");
+    newActive.children('.unreadCount').remove();
     $('#chatBox').empty();
     $('#chatBox').append(getChatView(jid));
     $('#messageInput').focus();
@@ -167,7 +181,7 @@ function getChatView(jid) {
 
 function sendMessage() {
     var content = $('#messageInput').val();
-    var recipient = new XMPP.JID(views.chatListItems.ACTIVE.text());
+    var recipient = new XMPP.JID(views.chatListItems.ACTIVE.attr('data-jid'));
     if (content && recipient) {
         $('#messageInput').val('');
         client.sendMessage({
@@ -177,4 +191,23 @@ function sendMessage() {
             type: 'chat'
         });
     }
+}
+
+function getChatTabElement(jid) {
+    jid = jid.bare || jid;
+    var el = views.chatListItems[jid];
+    if (el) {
+        return el;
+    }
+    el = $('<a>');
+    el.attr('data-jid', jid);
+    el.addClass('contact');
+    el.text(jid);
+    el.click(function(e) {
+        e.preventDefault();
+        switchToChat(this.attributes['data-jid'].value);
+    });
+    views.chatListItems[jid] = el;
+    $('#roster').append(el);
+    return el;
 }
