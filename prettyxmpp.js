@@ -1,6 +1,7 @@
 var XMPP = require('stanza.io');
 var views = {};
 var client;
+var windowVisible = true;
 
 $(function() {
     window.XMPP = XMPP;
@@ -51,6 +52,21 @@ $(function() {
         e.preventDefault();
         sendMessage();
     });
+
+
+    $(window).on("focus", function() {
+        windowVisible = true;
+    });
+    $(window).on("blur", function() {
+        windowVisible = false;
+    });
+
+    if (!"Notification" in window) {
+        window.Notification = () => null;
+    }
+    else {
+        Notification.requestPermission(() => null);
+    }
 });
 
 function switchToView(switchTo) {
@@ -123,7 +139,18 @@ function onMessage(msg) {
     messageEl.append(bodyEl);
     $(getChatView(chatJid)).append(messageEl);
 
-    var chatTab = getChatTabElement(chatJid);
+    increaseUnreadCount(chatJid);
+
+    if (!windowVisible) {
+        var n = new Notification("Message from " + chatJid, {
+            body: msg.body
+        });
+        n.onclick = () => switchToChat(chatJid)
+    }
+}
+
+function increaseUnreadCount(jid) {
+    var chatTab = getChatTabElement(jid);
     if (chatTab != views.chatListItems.ACTIVE) {
         var unreadCount = chatTab.children('.unreadCount').first();
         var count = 0;
