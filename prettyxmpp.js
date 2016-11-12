@@ -138,6 +138,7 @@ function onMessage(msg) {
     messageEl.append(authorEl);
     messageEl.append(bodyEl);
     $(getChatView(chatJid)).append(messageEl);
+    $(getChatView(chatJid)).scrollTop(999999);
 
     increaseUnreadCount(chatJid);
     if (!windowVisible) {
@@ -186,6 +187,7 @@ function switchToChat(jid) {
     newActive.children('.unreadCount').remove();
     $('#chatBox').empty();
     $('#chatBox').append(getChatView(jid));
+    $(getChatView(jid)).scrollTop(999999);
     $('#messageInput').focus();
 }
 
