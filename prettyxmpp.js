@@ -46,8 +46,6 @@ $(function() {
                 sendMessage();
             }
         }
-        e.target.style.height = "1px";
-        e.target.style.height = e.target.scrollHeight + "px";
     });
     $('#sendButton').on('click', function(e) {
         e.preventDefault();
@@ -188,8 +186,7 @@ function switchToChat(jid) {
     views.chatListItems.ACTIVE = newActive;
     newActive.addClass("active");
     newActive.children('.unreadCount').remove();
-    $('#chatBox').empty();
-    $('#chatBox').append(getChatView(jid));
+    $('#chatBox').html(getChatView(jid));
     $(getChatView(jid)).scrollTop(999999);
     $('#messageInput').focus();
 }
