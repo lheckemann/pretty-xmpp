@@ -22,7 +22,7 @@ body {
     background-color: #4ef;
 }
 .button:focus {
-    outline: none;
+    outline: 1px dotted #00f;
 }
 
 .info:before {
