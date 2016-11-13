@@ -39,11 +39,9 @@ $(function() {
     });
 
     $('#messageInput').on('keypress', function(e) {
-        if (e.key == 'Enter') {
-            if (!e.shiftKey) {
-                e.preventDefault();
-                sendMessage();
-            }
+        if (e.key == 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
         }
     });
     $('#sendButton').on('click', function(e) {
