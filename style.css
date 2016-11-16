@@ -30,11 +30,19 @@ body {
     content: "🛈";
     padding: 5px 2px 5px 5px;
 }
-.info {
+.info, .error {
     margin: 0em 5em 0em 5em;
     background-color: #ccf;
-    padding: 8px 0px 8px 0px;
+    padding: 8px 0.5em 8px 0px;
     display: inline-block;
+}
+.error {
+    background-color: #fcc;
+}
+.error:before {
+    color: #f00;
+    content: "✘";
+    padding: 5px 2px 5px 5px;
 }
 
 
