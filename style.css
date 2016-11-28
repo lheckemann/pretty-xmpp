@@ -191,6 +191,7 @@ header h1 {
 }
 #messageInput, #messageInput:focus{
     font-family: "Roboto", sans-serif;
+    font-size: 120%;
     resize: none;
     flex-grow: 5;
     outline: none;
