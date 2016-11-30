@@ -1,15 +1,33 @@
 #!/bin/sh
-while sleep 0.5
+set -e
+shopt -s nullglob
+
+files() {
+	for glob in $(
+	make -pn |
+		grep -E '^[^.][a-zA-Z/%.]*:' |
+		sed 's/^.*://' |
+		tr ' %' '\n*' |
+		sort |
+		uniq
+	)
+	do
+		case "$glob" in
+			*\**)
+				echo $glob
+				;;
+			*)
+				if [[ -e $glob ]]
+				then
+					echo $glob
+				fi
+				;;
+		esac
+	done
+}
+
+while :
 do
-    if [[ prettyxmpp.js -nt bundle.js ]]
-    then
-        date "+[%H:%M:%S] Rebuilding"
-        if time ./bundle.sh
-        then
-            date "+[%H:%M:%S] Rebuilt"
-        else
-            printf -- "------- Failed -------\n"
-            touch bundle.js
-        fi
-    fi
+	inotifywait --format "%e %f" -e close_write,create,modify,delete $(files) || true
+	time make
 done
