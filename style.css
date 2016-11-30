@@ -25,16 +25,20 @@ body {
     outline: 1px dotted #00f;
 }
 
+.loginFlash {
+    display: none;
+    margin: 0em 5em 0em 5em;
+    padding: 8px 0.5em 8px 0px;
+    display: inline-block;
+}
+
 .info:before {
     color: #00f;
     content: "🛈";
     padding: 5px 2px 5px 5px;
 }
-.info, .error {
-    margin: 0em 5em 0em 5em;
+.info {
     background-color: #ccf;
-    padding: 8px 0.5em 8px 0px;
-    display: inline-block;
 }
 .error {
     background-color: #fcc;

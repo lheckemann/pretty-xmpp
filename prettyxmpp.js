@@ -85,6 +85,9 @@ function validateLoginForm() {
 }
 
 function connect(params) {
+    // Clear login errors
+    $('.loginFlash').hide();
+
     switchToView(views.progress);
     client = XMPP.createClient(params);
     client.on('disconnected', function(e) {

@@ -9,10 +9,10 @@
     </head>
     <body>
         <div id="loginView" class="mainView">
-            <div class="info" style="display: none" id="passwordCleared">
+            <div class="loginFlash info" style="display: none" id="passwordCleared">
                 Your login data has been cleared.
             </div>
-            <div class="error" style="display:none" id="loginError"></div>
+            <div class="loginFlash error" style="display:none" id="loginError"></div>
             <form id="loginForm">
                 <label for="loginJid">JID</label>
                 <input type="text" id="loginJid" placeholder="alice@example.com" />
@@ -42,6 +42,6 @@
                 </div>
             </div>
         </div>
-        <audio id="newMessageSound" style="display: none;" src="message.webm" ></audio>
+        <audio id="newMessageSound" style="display: none;" src="message.webm"></audio>
     </body>
 </html>
