@@ -148,6 +148,7 @@ header h1 {
     display: block;
     line-height: 2.3;
     padding: 0px 20px 0px 5px;
+	cursor: pointer;
 }
 .contact.active {
     background-color: #ccc;
